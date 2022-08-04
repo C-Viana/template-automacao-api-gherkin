@@ -22,10 +22,12 @@ public class _Hooks {
 
     @Before
     public void startTest(Scenario scenario) {
-    	ReportManager.setScenario(scenario);
-        ReportManager.setResultPath(scenario.getUri().toString(), ReportManager.getScenario().getName());
+        ReportManager.setScenario(scenario);
+        ReportManager.setFeature(scenario.getUri().toString());
+        ReportManager.setResultPath(scenario.getUri().toString(), scenario.getName());
         ReportManager.startReport();
-        ReportManager.startTest(ReportManager.getScenario().getName());
+        String prefix = (ReportManager.suite_test) ? ReportManager.getFeature() + " - " : "";
+        ReportManager.startTest(prefix + scenario.getName());
     }
 
     @After
